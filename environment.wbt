@@ -1,0 +1,301 @@
+#VRML_SIM R2021b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.7582477491457129 0.641075174245238 -0.11867169789759353 0.46522381758628145
+  position 1.7724314668907009 2.200585976174104 6.24787448632252
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 5 5
+}
+Robot {
+  children [
+    DEF Body Transform {
+      translation -2 0 0
+    }
+  ]
+  boundingObject Shape {
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation 0 0.13 1
+  children [
+    HoneyJar {
+    }
+  ]
+  name "honey1"
+  boundingObject Shape {
+    geometry Cylinder {
+      height 0.1
+      radius 0.05
+    }
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation 0.5 0.13 1
+  children [
+    HoneyJar {
+    }
+  ]
+  name "honey2"
+  boundingObject Shape {
+    geometry Cylinder {
+      height 0.1
+      radius 0.05
+    }
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation 1 0.13 1
+  children [
+    HoneyJar {
+    }
+  ]
+  name "honey3"
+  boundingObject Shape {
+    geometry Cylinder {
+      height 0.1
+      radius 0.05
+    }
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation -0.5 0.13 1
+  children [
+    HoneyJar {
+    }
+  ]
+  name "honey4"
+  boundingObject Shape {
+    geometry Cylinder {
+      height 0.1
+      radius 0.05
+    }
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation -1 0.13 1
+  children [
+    HoneyJar {
+    }
+  ]
+  name "honey5"
+  boundingObject Shape {
+    geometry Cylinder {
+      height 0.1
+      radius 0.05
+    }
+  }
+  physics Physics {
+  }
+}
+Solid {
+  children [
+    DEF Shelf Shape {
+      appearance PBRAppearance {
+      }
+      geometry Box {
+        size 3 0.25 0.25
+      }
+    }
+  ]
+  name "shelf1"
+  boundingObject USE Shelf
+  physics Physics {
+  }
+}
+Solid {
+  translation 0 0 -1
+  children [
+    DEF Shelf Shape {
+      appearance PBRAppearance {
+      }
+      geometry Box {
+        size 3 0.25 0.25
+      }
+    }
+  ]
+  name "shelf2"
+  boundingObject USE Shelf
+  physics Physics {
+  }
+}
+Solid {
+  translation 0 0 1
+  children [
+    DEF Shelf Shape {
+      appearance PBRAppearance {
+      }
+      geometry Box {
+        size 3 0.25 0.25
+      }
+    }
+  ]
+  name "shelf3"
+  boundingObject USE Shelf
+  physics Physics {
+  }
+}
+Solid {
+  translation 0 0.13 0
+  children [
+    DEF Food JamJar {
+    }
+  ]
+  name "Jam1"
+  boundingObject Shape {
+    appearance Asphalt {
+    }
+    geometry Cylinder {
+      height 0.1
+      radius 0.05
+    }
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation 0.5 0.13 0
+  children [
+    JamJar {
+    }
+  ]
+  name "Jam2"
+  boundingObject Shape {
+    geometry Cylinder {
+      height 0.1
+      radius 0.05
+    }
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation 1 0.13 0
+  children [
+    JamJar {
+    }
+  ]
+  name "Jam3"
+  boundingObject Shape {
+    geometry Cylinder {
+      height 0.1
+      radius 0.05
+    }
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation -0.5 0.13 0
+  children [
+    JamJar {
+    }
+  ]
+  name "Jam4"
+  boundingObject Shape {
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation -1 0.13 0
+  children [
+    JamJar {
+    }
+  ]
+  name "Jam5"
+  boundingObject Shape {
+    geometry Cylinder {
+      height 0.1
+      radius 0.05
+    }
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation 0 0.13 -1
+  scale 0.5 0.5 0.5
+  children [
+    CerealBox {
+    }
+  ]
+  name "cereal"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation 0.5 0.13 -1
+  scale 0.5 0.5 0.5
+  children [
+    CerealBox {
+    }
+  ]
+  name "cereal2"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation 1 0.13 -1
+  scale 0.5 0.5 0.5
+  children [
+    CerealBox {
+    }
+  ]
+  name "cereal3"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation -0.5 0.13 -1
+  scale 0.5 0.5 0.5
+  children [
+    CerealBox {
+    }
+  ]
+  name "cereal4"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  physics Physics {
+  }
+}
+Solid {
+  translation -1 0.13 -1
+  scale 0.5 0.5 0.5
+  children [
+    CerealBox {
+    }
+  ]
+  name "cereal5"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+  physics Physics {
+  }
+}
