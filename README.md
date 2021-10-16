@@ -1,1 +1,3 @@
 # ece470project
+
+This repository will hold code used to simulate a shopping bot using Webots and ROS.  Since our robot is intended to faciliate fully autonomous shopping in retail stores it will need to simultaneously perform pick and place actions as well as move to locations where the target obstacles are within reach.  To do this, the robot will need some vision capabilities, and knowledge of the Forward and Inverse Kinematics of its actuator.  The code in this repository will accomplish both of these tasks.  We will likely have several ROS nodes.  One for control and one for each sensor that we decide to use.  
