@@ -5,7 +5,7 @@
   <include file="$(find ece470)/launch/webots.launch">
     <arg name="mode" value="realtime"/>
     <arg name="no_gui" value="$(arg no_gui)"/>
-    <arg name="world" value="$(find ece470)/worlds/ros_python2.wbt"/>
+    <arg name="world" value="$(find ece470)/worlds/ShoppeBot.wbt"/>
   </include>
 
   <arg name="auto_close" default="false" doc="Startup mode"/>

@@ -1,0 +1,156 @@
+#VRML_SIM R2021b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+  contactProperties [
+    ContactProperties {
+      material1 "InteriorWheelMat"
+      coulombFriction [
+        0, 2, 0
+      ]
+      frictionRotation -0.785398 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+      softCFM 0.0001
+    }
+    ContactProperties {
+      material1 "ExteriorWheelMat"
+      coulombFriction [
+        0, 2, 0
+      ]
+      frictionRotation 0.785398 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+      softCFM 0.0001
+    }
+    ContactProperties {
+      material1 "slope"
+      coulombFriction [
+        0.5
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0 1 0 3.1415926535897936
+  position -2.5910426905904154 0.5674241446665288 -5.320058246437052
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 15 15
+  floorAppearance Parquetry {
+    type "light strip"
+  }
+  wallHeight 3
+}
+DoubleFluorescentLamp {
+  translation -7.49 2.77 -0.1
+  rotation 0 0 1 -1.5707953071795862
+}
+DoubleFluorescentLamp {
+  translation -7.49 2.77 -4.47
+  rotation 0 0 1 -1.5707953071795862
+  name "double fuorescent lamp(1)"
+}
+DoubleFluorescentLamp {
+  translation -7.49 2.77 4.7
+  rotation 0 0 1 -1.5707953071795862
+  name "double fuorescent lamp(2)"
+}
+DEF Shelf2 Solid {
+  translation -0.0005717706396429785 0.24588003268475633 -0.04479732688640502
+  rotation -0.4573406974820702 0.888807025852812 0.029352294991910065 0.0006951365116917785
+  children [
+    DEF Shelf Shape {
+      appearance CorrodedMetal {
+      }
+      geometry Box {
+        size 10 0.5 1
+      }
+    }
+  ]
+  name "solid(1)"
+  boundingObject USE Shelf
+  physics Physics {
+    mass 10
+  }
+}
+DEF Jam5 JamJar {
+  translation -2.68822 0.495067 -0.446732
+  rotation -0.4838850121031644 -0.7930516407289497 0.3700329582605327 0.002305599122855988
+  name "jam jar(4)"
+}
+SummitXlSteel {
+  hidden position_0_0 -1.4231216383109313e-07
+  hidden position_0_1 -2.678896251495644e-07
+  hidden position_0_2 -7.387204012943016e-07
+  hidden position_0_3 -8.734558836209771e-07
+  hidden translation_7 0.22249917691020146 -0.20449996661010172 0.0031858493218904715
+  hidden rotation_7 0.9999999999999949 -7.115582054514311e-08 7.115608191554633e-08 1.570800000000005
+  hidden translation_8 0.22249917688587467 0.20450003337390876 0.0031841200538059626
+  hidden rotation_8 0.999999999999982 -1.339443205689151e-07 1.3394481257478058e-07 1.570800000000018
+  hidden translation_9 -0.22250081419373996 0.2045000329443426 0.0031378932936151514
+  hidden rotation_9 0.9999999999998638 -3.6935884391383537e-07 3.693602006471173e-07 1.570800000000136
+  hidden translation_10 -0.22250081502939797 -0.20449996703966933 0.003139622561477319
+  hidden rotation_10 0.9999999999998093 -4.3672633762207494e-07 4.367279418104331e-07 1.5708000000001898
+  hidden position_20_0 -9.59309219084048e-06
+  hidden rotation_21 0 0 -1 9.593107879044476e-06
+  hidden position_21_0 8.776778045742134e-06
+  hidden rotation_22 0 1 0 1.5708047767780458
+  hidden position_22_0 3.913194347759217e-06
+  hidden rotation_23 0 1 0 3.913193597824512e-06
+  hidden position_23_0 2.163051038713043e-06
+  hidden rotation_24 0 1 0 1.5707981630510386
+  hidden position_24_0 -1.1271600932616366e-06
+  hidden rotation_25 0 0 -1 1.126984977793055e-06
+  hidden position_25_0 1.1198938512130041e-06
+  hidden rotation_26 0 1 0 1.1198696033988107e-06
+  hidden position_27_0 6.141223106548836e-08
+  hidden position_27_1 6.14122115386085e-08
+  hidden position_27_2 0.04949995841120271
+  hidden rotation_28 0.7068252250607695 0.7073882252403286 3.021704816657111e-06 3.1415980434422806
+  hidden position_28_0 0.0494999584319772
+  hidden rotation_29 0 0 -1 4.2146848510894035e-08
+  hidden position_29_0 -6.043563871571678e-09
+  hidden rotation_30 0 0 -1 0.5200000060435639
+  hidden position_30_0 -0.05229999999995065
+  hidden rotation_32 0.7068252250607695 0.7073882252403286 3.0217048097560643e-06 3.141598043442267
+  hidden position_32_0 0.04949995843199052
+  hidden rotation_33 0 0 -0.9999999999999999 4.2146848510894035e-08
+  hidden position_33_0 -6.043561207036419e-09
+  hidden rotation_34 0 0 -1 0.5200000060435613
+  hidden position_34_0 -0.052299999999950546
+  hidden rotation_36 0 0 -1 4.2146848510894035e-08
+  hidden position_36_0 -6.047018885624311e-09
+  hidden rotation_37 0 0 -1 0.5200000060470188
+  hidden position_37_0 -0.05230000000004885
+  translation -4.192146232255742 0.1099582114910148 -1.0299753143068653
+  rotation -0.99968363978506 -0.021830065662176098 -0.012492741063490128 1.5722460096098014
+  bodySlot [
+    UR3e {
+      translation 0.0799997 -0.07 -0.01
+      rotation -1.20631e-07 2.39745e-09 -1 1.5708
+      controller "ure_can_grasper"
+      selfCollision FALSE
+      toolSlot [
+        Robotiq3fGripper {
+        }
+        DistanceSensor {
+          translation 0 0.1 0
+          rotation 0 0 1 1.570796
+        }
+      ]
+    }
+    PlasticCrate {
+      translation -0.29 -0.01 6.39749e-07
+      rotation 1 0 0 1.5707996938995747
+      size 0.4 0.3 0.5
+    }
+  ]
+}
