@@ -41,7 +41,7 @@ class UR3Node():
 
     def run(self):
         while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
-            self.move_arm(self.view_shelf)
+            self.move_arm(self.straight_up)
 
 
     def move_arm(self, thetas):

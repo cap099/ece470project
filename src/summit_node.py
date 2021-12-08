@@ -1,4 +1,4 @@
-from numpy.ma.core import left_shift
+import numpy as np
 import rospy
 from rospy.core import is_shutdown
 from std_msgs.msg import Float64
@@ -50,6 +50,11 @@ class SummitNode():
         self.rear_distance_sensor.enable(self.timeStep)
 
 
+        self.imu = self.robot.getDevice('imu')
+        self.imu.enable(self.timeStep)
+
+
+
     def setVelocity(self, v, direction):
         if direction == 'left':
             self.left_front.setVelocity(-v)
@@ -94,6 +99,26 @@ class SummitNode():
         while init_position - self.front_distance_sensor.getValue() < 2.5 and self.robot.step(self.timeStep) != -1:
             self.setVelocity(self.velo, 'forward')
 
+    def turn180(self, direction):
+        if direction == 'left':
+            m = 1
+        elif direction == 'right':
+            m = -1
+
+        roll, pitch, yaw = self.imu.getRollPitchYaw()
+        while self.robot.step(self.timeStep) != -1:
+            if self.imu.getRollPitchYaw()[2] - yaw >= np.pi:
+                break
+            else:
+                self.left_front.setVelocity(m*self.velo)
+                self.left_back.setVelocity(m*self.velo)  
+                self.right_front.setVelocity(-m*self.velo)
+                self.right_back.setVelocity(-m*self.velo)
+
+                print(self.imu.getRollPitchYaw())
+
+            
+
 
 
 
@@ -103,28 +128,29 @@ class SummitNode():
 
 
     def run(self):
-        if 'biscuits' in self.groceryList:
-            self.moveToShelf()
-            self.moveFromShelf()
+        self.turn180('left')
+        # if 'biscuits' in self.groceryList:
+        #     self.moveToShelf()
+        #     self.moveFromShelf()
 
-        self.nextAisle()
-        if 'honey' in self.groceryList:
-            print('TURN')
-            print('TURN AGAIN')
+        # self.nextAisle()
+        # if 'honey' in self.groceryList:
+        #     print('TURN')
+        #     print('TURN AGAIN')
 
 
-        if 'jam' in self.groceryList:
-            self.moveToShelf()
-            self.moveFromShelf()
-        self.nextAisle()
-        if 'cereal' in self.groceryList:
-            print('TURN')
-            print('TURN AGAIN')
+        # if 'jam' in self.groceryList:
+        #     self.moveToShelf()
+        #     self.moveFromShelf()
 
-        self.nextAisle()
-        if 'soda' in self.groceryList:
-            self.moveToShelf()
-            self.moveFromShelf()
+        # self.nextAisle()
+        # if 'cereal' in self.groceryList:
+        #     print('TURN')
+        #     print('TURN AGAIN')
+
+        # if 'soda' in self.groceryList:
+        #     self.moveToShelf()
+        #     self.moveFromShelf()
 
 
 
