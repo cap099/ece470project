@@ -1,0 +1,6 @@
+#grocery number (make sure there is at least 1 space between the 2 values)
+biscuits 1
+honey 1
+jam 1
+cereal 1
+soda 1
