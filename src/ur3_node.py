@@ -1,6 +1,6 @@
 import rospy
 from std_msgs.msg import Float64
-from controller import Robot
+from controller import Robot, Camera
 import os
 import numpy as np
 from lab6_func import *
@@ -30,14 +30,19 @@ class UR3Node():
         self.over_basket = [np.pi/10, -3*np.pi/4, -np.pi/8, np.pi/8,np.pi/2,0]
         self.straight_up  = [0,-np.pi/2,0,0,0,0]
         self.zero_thetas = [0,0,0,0,0,0]
+        # self.view_shelf = [0,-np.pi/2,np.pi/3,np.pi/6,-np.pi/2,np.pi/2]
+        self.view_shelf = lab_invk(0.15,0.15, 0.2, 0)
+
+        self.gripCamera = self.robot.getDevice('gripCamera')
+        self.gripCamera.enable(self.timeStep)
+
 
 
 
     def run(self):
-        self.move_arm(self.straight_up)
         while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
-            self.straight_up[0] = (self.straight_up[0] + np.pi/4) % 2*np.pi
-            self.move_arm(self.straight_up)
+            self.move_arm(self.view_shelf)
+
 
     def move_arm(self, thetas):
         for i,joint in enumerate(self.joints):

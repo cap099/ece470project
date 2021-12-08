@@ -10,10 +10,10 @@ class SummitNode():
         self.timeStep = int(self.robot.getBasicTimeStep())
 
         self.rgb_camera = Camera('rgb_camera')
-        self.rgb_camera.enable(33)
+        self.rgb_camera.enable(self.timeStep)
 
         self.depth_camera = self.robot.getDevice('depth_camera')
-        self.depth_camera.enable(33)
+        self.depth_camera.enable(self.timeStep)
 
         self.left_back = self.robot.getDevice('back_left_wheel_joint')
         self.left_front = self.robot.getDevice('front_left_wheel_joint')
@@ -37,12 +37,12 @@ class SummitNode():
         self.right_distance_sensor.enable(self.timeStep)
 
     def run(self):
-        while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown() and self.left_distance_sensor.getValue() > 5:
+        while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():# and self.left_distance_sensor.getValue() > 5:
             velocity = 2
-            self.left_front.setVelocity(velocity)
+            self.left_front.setVelocity(-velocity)
             self.left_back.setVelocity(velocity)  
             self.right_front.setVelocity(velocity)
-            self.right_back.setVelocity(velocity)
+            self.right_back.setVelocity(-velocity)
             pub.publish(self.left_distance_sensor.getValue())
 
     def callback(data):
