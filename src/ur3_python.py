@@ -59,19 +59,27 @@ def close_hand():
     for motor in hand_motors:
         motor.setPosition(0.85)
 
+def open_hand():
+    global hand_motors
+    for motor in hand_motors:
+        motor.setPosition(0.0)
 
-over_basket = [np.pi/5.5, -np.pi/2, -np.pi/8, -np.pi*3/8,np.pi/2,0]
+
+
+
+over_basket = [np.pi/10, -3*np.pi/4, -np.pi/8, np.pi/8,np.pi/2,0]
+straight_up  = [0,-np.pi/2,0,0,0,0]
 test_thetas = [np.pi/2, 0, 0, -90, 0, 0]
 zero_thetas = [0,0,0,0,0,0]
-# thetas = lab_invk(0.25,0.15,-0.04,0)
-thetas = lab_invk(0.25,0.15,0.25,0)
+down = lab_invk(0.25,0.15,-0.03,0)
+up = lab_invk(0.25,0.15,0.25,0)
 
 
 
 timeStep = 32
 while robot.step(timeStep) != -1:
-    print(thetas)
-    move_arm(joints, over_basket)
+    open_hand()
+    # move_arm(joints, over_basket)
     # close_hand()
 
 
