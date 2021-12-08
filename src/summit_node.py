@@ -4,6 +4,7 @@ from rospy.core import is_shutdown
 from std_msgs.msg import Float64
 from controller import Robot, Camera
 import os
+from lab6_func import *
 import time
 
 
@@ -49,9 +50,15 @@ class SummitNode():
         self.rear_distance_sensor = self.robot.getDevice('rear_distance_sensor')
         self.rear_distance_sensor.enable(self.timeStep)
 
+        self.object_sensor = self.robot.getDevice('object_sensor')
+        self.object_sensor.enable(self.timeStep)
+
 
         self.imu = self.robot.getDevice('imu')
         self.imu.enable(self.timeStep)
+
+        self.gripCamera = self.robot.getDevice('gripCamera')
+        self.gripCamera.enable(self.timeStep)
 
 
 
@@ -82,9 +89,6 @@ class SummitNode():
 
 
     def moveToShelf(self):
-        while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown() and self.front_distance_sensor.getValue() > 5:
-            self.setVelocity(self.velo, 'left')
-
         while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown() and self.front_distance_sensor.getValue() > 0.25:
             self.setVelocity(self.velo, 'forward')
 
@@ -99,80 +103,34 @@ class SummitNode():
         while init_position - self.front_distance_sensor.getValue() < 2.5 and self.robot.step(self.timeStep) != -1:
             self.setVelocity(self.velo, 'forward')
 
-    def turn180(self, direction):
-        if direction == 'left':
-            m = 1
-        elif direction == 'right':
-            m = -1
+    def turn180(self):
+        pass
 
-        roll, pitch, yaw = self.imu.getRollPitchYaw()
+    def moveToItem(self):
         while self.robot.step(self.timeStep) != -1:
-            if self.imu.getRollPitchYaw()[2] - yaw >= np.pi:
+            self.setVelocity(self.velo, 'left')
+            print(self.object_sensor.getValue())
+            if self.object_sensor.getValue() < 1:
                 break
-            else:
-                self.left_front.setVelocity(m*self.velo)
-                self.left_back.setVelocity(m*self.velo)  
-                self.right_front.setVelocity(-m*self.velo)
-                self.right_back.setVelocity(-m*self.velo)
 
-                print(self.imu.getRollPitchYaw())
-
-            
-
-
-
-
-
-        
-
-
+    def moveFromItem(self):
+        while self.robot.step(self.timeStep) != -1:
+            self.setVelocity(self.velo, 'left')
+            if self.object_sensor.getValue() > 3:
+                break
 
     def run(self):
-        self.turn180('left')
-        # if 'biscuits' in self.groceryList:
-        #     self.moveToShelf()
-        #     self.moveFromShelf()
-
-        # self.nextAisle()
-        # if 'honey' in self.groceryList:
-        #     print('TURN')
-        #     print('TURN AGAIN')
-
-
-        # if 'jam' in self.groceryList:
-        #     self.moveToShelf()
-        #     self.moveFromShelf()
-
-        # self.nextAisle()
-        # if 'cereal' in self.groceryList:
-        #     print('TURN')
-        #     print('TURN AGAIN')
-
-        # if 'soda' in self.groceryList:
-        #     self.moveToShelf()
-        #     self.moveFromShelf()
-
-
-
-
-
+        self.moveToShelf()
+        for i in range(3):
+            while self.robot.step(self.timeStep) != -1:
+                self.setVelocity(self.velo, 'left')
+                if self.object_sensor.getValue() < 0.3:
+                    self.setVelocity(0, 'left')
+                    start = time.time()
+                    while time.time() - start < 5:
+                        self.robot.step(self.timeStep)
 
         
-        # while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():# and self.left_distance_sensor.getValue() > 5:
-        #     velocity = 2
-        #     self.left_front.setVelocity(-velocity)
-        #     self.left_back.setVelocity(velocity)  
-        #     self.right_front.setVelocity(velocity)
-        #     self.right_back.setVelocity(-velocity)
-        #     pub.publish(self.left_distance_sensor.getValue())
-
-    # def callback(data):
-    #     global velocity
-    #     global message
-    #     message = 'Received velocity value: ' + str(data.data)
-    #     velocity = data.data
-
-
 
 
 
@@ -190,13 +148,11 @@ def read_grocery_list(filename):
     return groceries
 
 
-
-
 if __name__ == '__main__':
     groceries = read_grocery_list('grocery_list.txt')
     os.environ['WEBOTS_ROBOT_NAME'] = 'Summit-XL Steel'
     rospy.init_node('summit', anonymous=True)
-    pub = rospy.Publisher('sensor', Float64, queue_size=10)
+    pub = rospy.Publisher('ur3_command', Float64, queue_size=10)
     node = SummitNode(groceries)
     node.run()
 

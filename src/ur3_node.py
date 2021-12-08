@@ -4,11 +4,12 @@ from controller import Robot, Camera
 import os
 import numpy as np
 from lab6_func import *
-
+import time
 
 
 down = lab_invk(0.25,0.15,-0.03,0)
 up = lab_invk(0.25,0.15,0.25,0)
+pause = True
 
 class UR3Node():
     def __init__(self):
@@ -29,19 +30,65 @@ class UR3Node():
 
         self.over_basket = [np.pi/10, -3*np.pi/4, -np.pi/8, np.pi/8,np.pi/2,0]
         self.straight_up  = [0,-np.pi/2,0,0,0,0]
-        self.zero_thetas = [0,0,0,0,0,0]
+        self.arm_out_of_way = [np.pi/2,0,0,0,0,0]
         # self.view_shelf = [0,-np.pi/2,np.pi/3,np.pi/6,-np.pi/2,np.pi/2]
-        self.view_shelf = lab_invk(0.15,0.15, 0.2, 0)
+        self.view_shelf = lab_invk(0.20,0.15, 0.20, 0)
+        self.pick_position = lab_invk(0.17,0.18, -0.04, 0)
 
-        self.gripCamera = self.robot.getDevice('gripCamera')
-        self.gripCamera.enable(self.timeStep)
+        
 
 
 
 
     def run(self):
-        while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
-            self.move_arm(self.straight_up)
+
+        for i in range(3):
+            start = time.time()
+            while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
+                self.move_arm(self.straight_up)
+                if time.time() - start > 5:
+                    break
+
+            start = time.time()
+            while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
+                self.move_arm(self.view_shelf)
+                if time.time() - start > 1.5:
+                    break
+
+            start = time.time()
+            while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
+                self.move_arm(self.pick_position)
+                if time.time() - start > 2:
+                    break
+            
+            start = time.time()
+            while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
+                self.close_hand()
+                if time.time() - start > 1:
+                    break
+
+            start = time.time()
+            while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
+                self.move_arm(self.over_basket)
+                if time.time() - start > 1:
+                    break
+
+            start = time.time()
+            while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
+                self.open_hand()
+                if time.time() - start > 1:
+                    break
+
+            start = time.time()
+            while self.robot.step(self.timeStep) != -1 and not rospy.is_shutdown():
+                self.move_arm(self.straight_up)
+                if time.time() - start > 10:
+                    break
+
+        
+        
+
+        
 
 
     def move_arm(self, thetas):
@@ -62,10 +109,14 @@ class UR3Node():
             motor.setPosition(0.0)
 
 
+def pause_callback(msg):
+    global pause
+    pause = msg
 
 
 if __name__ == '__main__':
     os.environ['WEBOTS_ROBOT_NAME'] = 'UR3e'
     rospy.init_node('ur3', anonymous=True)
+    sub = rospy.Subscriber('ur3_command/', Float64, callback=pause_callback)
     node = UR3Node()
     node.run()
